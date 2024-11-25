@@ -45,6 +45,38 @@ La faille s'est manifestée par des **crashs inattendus des programmes**. Elle a
 Non, à mon avis, cette faille n’aurait pas été découverte par des tests traditionnels. Les chercheurs ont utilisé la méthode de **fuzz testing**, une technique basée sur des données aléatoires, pour identifier cette vulnérabilité. Ils ont affirmé que les cibles de tests écrites par des humains n’auraient pas permis de détecter cette faille ancienne.
 
 
-2. https://issues.apache.org/jira/projects/COLLECTIONS/issues/COLLECTIONS-796?filter=doneissues
-and
-https://github.com/apache/commons-collections/pull/255
+2. [UnmodifiableNavigableSet can be modified by pollFirst() and pollLast()](https://issues.apache.org/jira/projects/COLLECTIONS/issues/COLLECTIONS-799?filter=doneissues) bug
+
+This is a design bug since ```UnmodifiableNavigableSet``` must be unmodifiable according to its specification. The issue arises from the absence of overridden methods for ```pollFirst()``` and ```pollLast()``` in the class. 
+
+This is a local bug.
+
+The [solution](https://github.com/apache/commons-collections/pull/250) is simple and involves simply adding the following lines of code:
+
+```java
+    /**
+     * @since 4.5
+     */
+    @Override
+    public E pollFirst() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @since 4.5
+     */
+    @Override
+    public E pollLast() {
+        throw new UnsupportedOperationException();
+    }
+```
+
+The contributor has also refactored some test code for improved readability and added additional test cases to ensure the bug is fixed and will not reoccur in the future:
+
+```java
+if (set instanceof NavigableSet) {
+            final NavigableSet<E> navigableSet = (NavigableSet<E>) set;
+            assertThrows(UnsupportedOperationException.class, () -> navigableSet.pollFirst());
+            assertThrows(UnsupportedOperationException.class, () -> navigableSet.pollLast());
+        }
+```
