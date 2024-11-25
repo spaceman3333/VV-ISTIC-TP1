@@ -12,7 +12,38 @@
 
 ## Answers
 
-1. https://www.msn.com/en-us/news/technology/google-uses-ai-to-discover-20-year-old-software-bug/ar-AA1urWKO
+## 1. https://www.msn.com/en-us/news/technology/google-uses-ai-to-discover-20-year-old-software-bug/ar-AA1urWKO
+
+### Décrivez le bug
+
+Le bug est une vulnérabilité dans la bibliothèque **OpenSSL** qui provoque un out-of-bound memory access. Ce type de problème peut entraîner des crashs de programme ou, dans de rares cas, permettre à un attaquant d’exécuter du code malveillant.
+
+---
+### Le bug est-il local ou global ?
+
+Le bug est **global** car la bibliothèque OpenSSL est utilisée par de nombreuses applications et services Internet pour des communications sécurisées. Sa portée dépasse largement une utilisation spécifique ou locale.
+
+---
+### Décrivez la défaillance ayant révélé le bug
+
+La faille s'est manifestée par des **crashs inattendus des programmes**. Elle avait également le potentiel, bien que limité, de permettre l'exécution de code malveillant à distance par un attaquant exploitant cette vulnérabilité.
+
+---
+### Expliquez les répercussions du bug
+
+#### Pour les clients et consommateurs :
+1. **Risques de sécurité** : La vulnérabilité pouvait être exploitée pour exécuter du code malveillant, mettant les données sensibles en danger.
+2. **Interruption de service** : Les exceptions d’accès hors limites à la mémoire pouvaient provoquer des interruptions de service et affecter les performances des applications.
+
+#### Pour la société ou entité responsable :
+1. **Impact sur la réputation** : Si des utilisateurs malveillants avaient découvert et exploité ce bug avant sa correction, cela aurait pu gravement nuire à la confiance des clients envers la société.
+2. **Coûts opérationnels** : Identifier, corriger et déployer des correctifs pour ce type de vulnérabilité nécessite des ressources importantes.
+
+---
+### Selon vous, un scénario de test approprié aurait-il permis de découvrir cette faille ?
+
+Non, à mon avis, cette faille n’aurait pas été découverte par des tests traditionnels. Les chercheurs ont utilisé la méthode de **fuzz testing**, une technique basée sur des données aléatoires, pour identifier cette vulnérabilité. Ils ont affirmé que les cibles de tests écrites par des humains n’auraient pas permis de détecter cette faille ancienne.
+
 
 2. https://issues.apache.org/jira/projects/COLLECTIONS/issues/COLLECTIONS-796?filter=doneissues
 and
