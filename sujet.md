@@ -45,7 +45,7 @@ La faille s'est manifestée par des **crashs inattendus des programmes**. Elle a
 Non, à mon avis, cette faille n’aurait pas été découverte par des tests traditionnels. Les chercheurs ont utilisé la méthode de **fuzz testing**, une technique basée sur des données aléatoires, pour identifier cette vulnérabilité. Ils ont affirmé que les cibles de tests écrites par des humains n’auraient pas permis de détecter cette faille ancienne.
 
 
-2. [UnmodifiableNavigableSet can be modified by pollFirst() and pollLast()](https://issues.apache.org/jira/projects/COLLECTIONS/issues/COLLECTIONS-799?filter=doneissues) bug
+## 2. [UnmodifiableNavigableSet can be modified by pollFirst() and pollLast()](https://issues.apache.org/jira/projects/COLLECTIONS/issues/COLLECTIONS-799?filter=doneissues) bug
 
 This is a design bug since ```UnmodifiableNavigableSet``` must be unmodifiable according to its specification. The issue arises from the absence of overridden methods for ```pollFirst()``` and ```pollLast()``` in the class. 
 
@@ -80,3 +80,40 @@ if (set instanceof NavigableSet) {
             assertThrows(UnsupportedOperationException.class, () -> navigableSet.pollLast());
         }
 ```
+
+
+
+## 3 Ingénierie du Chaos chez Netflix :
+
+### Expériences Réalisées
+Netflix met en oeuvre plusieurs expériences pour tester la résilience de ses systèmes :
+1. **Chaos Monkey** : Arrêt aléatoire de machines virtuelles en production pour tester la tolérance aux pannes.
+2. **Chaos Kong** : Simulation de la panne d’une région entière d’Amazon EC2 pour évaluer les capacités de basculement.
+3. **Tests d’injection de pannes** : Échec intentionnel des requêtes entre services pour vérifier la dégradation du système.
+4. **Tests de latence** : Ajout de délais dans les communications pour mesurer les impacts sur la performance.
+
+### Conditions Nécessaires
+Ces tests se déroulent en production, nécessitant des systèmes d'observation robustes et des mécanismes de sécurité pour limiter les risques. Les métriques comme le nombre de démarrages de flux vidéo par seconde (SPS) sont utilisées comme indicateurs de la santé du système.
+
+### Variables Observées
+Netflix observe principalement :
+- Les **métriques globales**, comme le SPS, qui reflètent le comportement global du système.
+- Les **métriques locales**, comme la latence ou l’utilisation CPU, pour détecter des problèmes internes sans impact direct pour l'utilisateur.
+
+### Résultats Obtenus
+Les expériences ont démontré une amélioration de la résilience et de la disponibilité des systèmes. Elles encouragent également une culture de développement où les pannes sont prises en compte dès la conception.
+
+### les Autres Entreprises
+Netflix n’est pas seul à appliquer ces techniques. Des entreprises comme Amazon, Google, Facebook ou Microsoft utilisent des approches similaires pour tester la robustesse de leurs infrastructures, notamment par des simulations de pannes massives.
+
+### Applications dans d’Autres Contextes
+Ces pratiques peuvent s’adapter à différents domaines, comme l'**E-commerce** ou la **Santé**
+- **E-commerce** : Simuler des pics de trafic pour tester la capacité des systèmes à répondre à la demande.
+- **Santé** : Simuler des pannes dans des systèmes critiques pour évaluer la gestion des données médicales sensibles.
+
+
+
+
+
+
+
