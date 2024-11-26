@@ -112,6 +112,33 @@ Ces pratiques peuvent s’adapter à différents domaines, comme l'**E-commerce*
 - **Santé** : Simuler des pannes dans des systèmes critiques pour évaluer la gestion des données médicales sensibles.
 
 
+## 4. WebAssembly
+
+### the main advantages of having a formal specification for WebAssembly:
+
+#### 1. **Sécurité Renforcée** :
+   - Assure une exécution sûre, même pour du code provenant de sources non fiables.
+   - Garantit l’isolation mémoire et la protection contre les comportements indéfinis, empêchant ainsi les corruptions système.
+
+#### 2. **Performance Optimale** :
+   - Permet une validation rapide du code via une vérification des types en une seule passe.
+   - Facilite la compilation efficace vers des instructions machine natives, réduisant la latence et maximisant les performances.
+
+#### 3. **Interopérabilité et Portabilité** :
+   - Supporte une large gamme d’architectures matérielles et de plateformes logicielles.
+   - Établit des bases solides pour le partage de modules et l’intégration dans divers contextes (navigateurs, systèmes embarqués).
+
+#### 4. **Robustesse et Fiabilité** :
+   - Simplifie la détection des erreurs en définissant des règles strictes sur la structure et le flux de contrôle du code.
+   - Évite les erreurs dues à des sauts ou des boucles mal formés.
+
+#### 5. **Base pour les Optimisations** :
+   - La spécification sert de fondation pour des techniques avancées de compilation et d’optimisation, telles que la traduction directe en SSA (Static Single Assignment) pour des compilateurs JIT modernes.
+
+
+### In your opinion, does this mean that WebAssembly implementations should not be tested?
+Non, je pense qu'il devrait être testé de manière approfondie. Le fait qu'il nous permette d'améliorer la performance et la sécurité de notre application web ne signifie pas qu'il soit exempt de tout type de bugs. Au contraire, nous devrions le tester intensivement, précisément parce qu'il est censé améliorer la sécurité et la performance de l'application.
+
 
 
 
