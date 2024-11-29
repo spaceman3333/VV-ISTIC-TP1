@@ -12,7 +12,7 @@
 
 ## Answers
 
-## 1. https://www.msn.com/en-us/news/technology/google-uses-ai-to-discover-20-year-old-software-bug/ar-AA1urWKO
+## 1. [Google uses ai to discover 20 years old software bug](https://www.msn.com/en-us/news/technology/google-uses-ai-to-discover-20-year-old-software-bug/ar-AA1urWKO)
 
 ### Décrivez le bug
 
