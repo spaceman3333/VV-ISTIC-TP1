@@ -92,24 +92,38 @@ Netflix met en oeuvre plusieurs expériences pour tester la résilience de ses s
 3. **Tests d’injection de pannes** : Échec intentionnel des requêtes entre services pour vérifier la dégradation du système.
 4. **Tests de latence** : Ajout de délais dans les communications pour mesurer les impacts sur la performance.
 
+---
+
 ### Conditions Nécessaires
 Ces tests se déroulent en production, nécessitant des systèmes d'observation robustes et des mécanismes de sécurité pour limiter les risques. Les métriques comme le nombre de démarrages de flux vidéo par seconde (SPS) sont utilisées comme indicateurs de la santé du système.
+
+---
+
 
 ### Variables Observées
 Netflix observe principalement :
 - Les **métriques globales**, comme le SPS, qui reflètent le comportement global du système.
 - Les **métriques locales**, comme la latence ou l’utilisation CPU, pour détecter des problèmes internes sans impact direct pour l'utilisateur.
 
+---
+
 ### Résultats Obtenus
 Les expériences ont démontré une amélioration de la résilience et de la disponibilité des systèmes. Elles encouragent également une culture de développement où les pannes sont prises en compte dès la conception.
 
+---
+
 ### les Autres Entreprises
 Netflix n’est pas seul à appliquer ces techniques. Des entreprises comme Amazon, Google, Facebook ou Microsoft utilisent des approches similaires pour tester la robustesse de leurs infrastructures, notamment par des simulations de pannes massives.
+
+---
 
 ### Applications dans d’Autres Contextes
 Ces pratiques peuvent s’adapter à différents domaines, comme l'**E-commerce** ou la **Santé**
 - **E-commerce** : Simuler des pics de trafic pour tester la capacité des systèmes à répondre à la demande.
 - **Santé** : Simuler des pannes dans des systèmes critiques pour évaluer la gestion des données médicales sensibles.
+
+---
+
 
 
 ## 4. WebAssembly
@@ -120,27 +134,63 @@ Ces pratiques peuvent s’adapter à différents domaines, comme l'**E-commerce*
    - Assure une exécution sûre, même pour du code provenant de sources non fiables.
    - Garantit l’isolation mémoire et la protection contre les comportements indéfinis, empêchant ainsi les corruptions système.
 
+---
+
 #### 2. **Performance Optimale** :
    - Permet une validation rapide du code via une vérification des types en une seule passe.
    - Facilite la compilation efficace vers des instructions machine natives, réduisant la latence et maximisant les performances.
+
+---
 
 #### 3. **Interopérabilité et Portabilité** :
    - Supporte une large gamme d’architectures matérielles et de plateformes logicielles.
    - Établit des bases solides pour le partage de modules et l’intégration dans divers contextes (navigateurs, systèmes embarqués).
 
+---
+
 #### 4. **Robustesse et Fiabilité** :
    - Simplifie la détection des erreurs en définissant des règles strictes sur la structure et le flux de contrôle du code.
    - Évite les erreurs dues à des sauts ou des boucles mal formés.
 
+---
+
 #### 5. **Base pour les Optimisations** :
    - La spécification sert de fondation pour des techniques avancées de compilation et d’optimisation, telles que la traduction directe en SSA (Static Single Assignment) pour des compilateurs JIT modernes.
 
+---
 
 ### In your opinion, does this mean that WebAssembly implementations should not be tested?
 Non, je pense qu'il devrait être testé de manière approfondie. Le fait qu'il nous permette d'améliorer la performance et la sécurité de notre application web ne signifie pas qu'il soit exempt de tout type de bugs. Au contraire, nous devrions le tester intensivement, précisément parce qu'il est censé améliorer la sécurité et la performance de l'application.
 
+---
+
+## 5. Mechanized Specification
 
 
+### 1. What are the main advantages of the mechanized specification?  
+La spécification mécanisée permet une vérification formelle et automatisée des propriétés de correction, comme la **soundness** du système de types, garantissant que les programmes WebAssembly bien typés se comportent comme prévu pendant l'exécution.  
+Elle soutient la création d'outils exécutables vérifiés, tels qu’un interpréteur et un vérificateur de types, utilisables pour des tests de conformité et des applications réelles, et aide à identifier les problèmes ou ambiguïtés dans la spécification officielle.
 
+---
+
+### 2. Did it help improve the original formal specification of the language?  
+Oui, la preuve mécanisée a révélé plusieurs lacunes dans la spécification originale de WebAssembly. Des problèmes dans la propagation de l’opération **Trap** ont été identifiés et corrigés, et des erreurs dans les règles de typage pour l’opération **Return** ont été découvertes et résolues.
+
+---
+
+### 3. What other artifacts were derived from this mechanized specification?  
+Un **interpréteur vérifié et exécutable** ainsi qu’un **vérificateur de types exécutable** ont été développés sur la base de la spécification mécanisée.
+
+---
+
+### 4. How did the author verify the specification?  
+La vérification a été réalisée à travers des preuves mécanisées des propriétés de correction, comme **progress** et **preservation**. Des tests de validation et de fuzzing ont été effectués en utilisant les tests de conformité du référentiel WebAssembly et des cas de test générés avec des outils comme **CSmith** et **Binaryen**.
+
+---
+
+### 5. Does this new specification remove the need for testing?  
+Non, la spécification mécanisée n’élimine pas la nécessité de tests. Les implémentations dans le monde réel et les intégrations avec des systèmes externes nécessitent encore des tests pour traiter les problèmes qui dépassent le cadre de la spécification.
+
+---
 
 
